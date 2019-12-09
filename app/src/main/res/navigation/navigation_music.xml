@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_music"
+    app:startDestination="@id/playlistSelectionFragment">
+
+    <fragment
+        android:id="@+id/playlistSelectionFragment"
+        android:name="com.android.example.hockeydj.PlaylistSelectionFragment"
+        android:label="fragment_music_selection"
+        tools:layout="@layout/fragment_playlist_selection" >
+        <action
+            android:id="@+id/action_playlistSelectionFragment_to_musicFilterFragment"
+            app:destination="@id/musicFilterFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/musicFilterFragment"
+        android:name="com.android.example.hockeydj.MusicFilterFragment"
+        android:label="fragment_music_filter"
+        tools:layout="@layout/fragment_music_filter" >
+        <action
+            android:id="@+id/action_musicFilterFragment_to_musicSelectionFragment"
+            app:destination="@id/musicSelectionFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/musicSelectionFragment"
+        android:name="com.android.example.hockeydj.MusicSelectionFragment"
+        android:label="fragment_music_selection_list"
+        tools:layout="@layout/fragment_music_selection_list">
+        <argument
+            android:name="mode"
+            app:argType="string"/>
+        <argument
+            android:name="media_id"
+            app:argType="integer"/>
+        <argument
+            android:name="media_name"
+            app:argType="string"/>
+    </fragment>
+</navigation>

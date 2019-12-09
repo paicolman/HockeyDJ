@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="586dp"
+
+        tools:context=".PlayFragment">
+
+        <!-- TODO: Update blank fragment layout -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/homeTeam"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/hockey_font_02"
+                android:text="HOME TEAM"
+                app:layout_constraintEnd_toEndOf="@id/homeGoalButton"
+                app:layout_constraintStart_toStartOf="@id/homeGoalButton"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/guestTeam"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/hockey_font_02"
+                android:text="GUEST TEAM"
+                app:layout_constraintEnd_toEndOf="@id/guestGoalButton"
+                app:layout_constraintStart_toStartOf="@id/guestGoalButton"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/homeGoalButton"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:adjustViewBounds="true"
+                android:padding="16dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/goal"
+                app:layout_constraintBottom_toTopOf="@+id/homeFaultButton"
+                app:layout_constraintEnd_toStartOf="@+id/guestGoalButton"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/homeTeam" />
+
+            <ImageButton
+                android:id="@+id/guestGoalButton"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:padding="16dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/goal"
+                android:text="Button"
+                app:layout_constraintBottom_toTopOf="@+id/guestFaultButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/homeGoalButton"
+                app:layout_constraintTop_toBottomOf="@+id/guestTeam" />
+
+            <ImageButton
+                android:id="@+id/homeFaultButton"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/referee"
+                android:text="Button"
+                app:layout_constraintBottom_toTopOf="@+id/homeTimeoutButton"
+                app:layout_constraintEnd_toStartOf="@+id/guestFaultButton"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/homeGoalButton" />
+
+            <ImageButton
+                android:id="@+id/guestFaultButton"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/referee"
+                android:text="Button"
+                app:layout_constraintBottom_toTopOf="@+id/guestTimeoutButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/homeFaultButton"
+                app:layout_constraintTop_toBottomOf="@+id/guestGoalButton" />
+
+            <ImageButton
+                android:id="@+id/homeTimeoutButton"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/timeout"
+                android:text="Button"
+                app:layout_constraintBottom_toTopOf="@+id/generalInterruptButton"
+                app:layout_constraintEnd_toStartOf="@+id/guestTimeoutButton"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/homeFaultButton" />
+
+            <ImageButton
+                android:id="@+id/guestTimeoutButton"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/timeout"
+                android:text="Button"
+                app:layout_constraintBottom_toBottomOf="@+id/homeTimeoutButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/homeTimeoutButton"
+                app:layout_constraintTop_toBottomOf="@+id/guestFaultButton" />
+
+            <Button
+                android:id="@+id/generalInterruptButton"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/hockey_font_02"
+                android:text="General interruption"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/soundOnOff"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/homeTimeoutButton" />
+
+            <ImageView
+                android:id="@+id/soundOnOff"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/nowPlaying"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/generalInterruptButton"
+                app:srcCompat="@drawable/nosound" />
+
+            <TextView
+                android:id="@+id/nowPlaying"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="8dp"
+                android:scrollHorizontally="true"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:singleLine="true"
+                android:text="TextView"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/stopButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/soundOnOff" />
+
+            <Button
+                android:id="@+id/stopButton"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="#FF0000"
+                android:fontFamily="@font/hockey_font_02"
+                android:text="STOP"
+                android:textColor="#FFFFFF"
+                android:textSize="30sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nowPlaying" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+</layout>
