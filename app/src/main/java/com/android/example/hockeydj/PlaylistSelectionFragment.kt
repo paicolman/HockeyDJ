@@ -1,5 +1,8 @@
 package com.android.example.hockeydj
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -7,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -29,11 +33,19 @@ class PlaylistSelectionFragment : Fragment(), View.OnClickListener {
     //navigation
     lateinit var navController: NavController
 
+    //Playlist info
+    var playlistInfo = arrayOf("","","","","","","")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d(TAG, "onCreate")
         trackViewModel = ViewModelProvider(this).get(TrackViewModel::class.java)
         addPlaylistObserver()
-        Log.d(TAG, "onCreate")
+        val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
+            // Handle the back button event
+            Log.d(TAG, "Back button thing disabled...")
+        }
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -57,6 +69,12 @@ class PlaylistSelectionFragment : Fragment(), View.OnClickListener {
         binding.generalInterruption.setOnClickListener(this)
 
         binding.homeGoalDelete.setOnClickListener(this)
+        binding.homeFaultDelete.setOnClickListener(this)
+        binding.homeTimeDelete.setOnClickListener(this)
+        binding.guestGoalDelete.setOnClickListener(this)
+        binding.guestFaultDelete.setOnClickListener(this)
+        binding.guestTimeDelete.setOnClickListener(this)
+        binding.generalIntrptDelete.setOnClickListener(this)
     }
 
     override fun onResume() {
@@ -72,19 +90,65 @@ class PlaylistSelectionFragment : Fragment(), View.OnClickListener {
             binding.guestGoal, binding.guestFault, binding.guestTimeout,
             binding.generalInterruption -> {
                 v?.let {playlistView ->
-                    Log.d(TAG,"PRESSED:${playlistView.tag.toString()}")
                     playlistView.setBackgroundColor(android.graphics.Color.parseColor("#e6e6e6"))
 
+                    var name = ""
+                    var icon = 0
+                    var info = ""
+
+                    when (playlistView.tag.toString()) {
+                        "homeGoal" -> {
+                            name = "Editing: Home Goals playlist"
+                            icon = R.drawable.goal_list
+                            info = playlistInfo[0]
+                        }
+                        "homeFault" -> {
+                            name = "Editing: Home Faults playlist"
+                            icon = R.drawable.fault_list
+                            info = playlistInfo[1]
+                        }
+                        "homeTimeout" -> {
+                            name = "Editing: Home Timeouts playlist"
+                            icon = R.drawable.time_list
+                            info = playlistInfo[2]
+                        }
+                        "guestGoal" -> {
+                            name = "Editing: Guest Goals playlist"
+                            icon = R.drawable.goal_list
+                            info = playlistInfo[3]
+                        }
+                        "guestFault" -> {
+                            name = "Editing: Guest Faults playlist"
+                            icon = R.drawable.fault_list
+                            info = playlistInfo[4]
+                        }
+                        "guestTimeout" -> {
+                            name = "Editing: Guest Timeouts playlist"
+                            icon = R.drawable.time_list
+                            info = playlistInfo[5]
+                        }
+                        "genIntrpt" -> {
+                            name = "Editing: Game Int. playlist"
+                            icon = R.drawable.gen_list
+                            info = playlistInfo[6]
+                        }
+                    }
+
                     val bundle = bundleOf(
-                        "playlist" to playlistView.tag.toString()
+                        "playlist" to playlistView.tag.toString(),
+                        "name" to name,
+                        "icon" to icon,
+                        "info" to info
                     )
 
                     navController.navigate(R.id.action_playlistSelectionFragment_to_musicFilterFragment, bundle)
                 }
             }
-            binding.homeGoalDelete -> {
+            binding.homeGoalDelete, binding.homeFaultDelete, binding.homeTimeDelete,
+            binding.guestGoalDelete, binding.guestFaultDelete, binding.guestTimeDelete,
+            binding.generalIntrptDelete -> {
                 val bundle = bundleOf(
-                    "playlist" to "Home Goals" //IMPORTANT: Used also to select the DB column! Do not change!
+                    "playlist" to v?.tag.toString()
                 )
                 val deleteDialog = PlaylistDeleteDialog()
                 deleteDialog.arguments = bundle
@@ -95,25 +159,32 @@ class PlaylistSelectionFragment : Fragment(), View.OnClickListener {
 
     private fun addPlaylistObserver(){
         trackViewModel.homeGoalPlaylist.observe (this, Observer {
-            binding.homeGoalSongs.text = "Contains: ${it.size} songs"
+            playlistInfo[0] = "Contains: ${it.size} songs"
+            binding.homeGoalSongs.text = playlistInfo[0]
         })
         trackViewModel.homeFaultPlaylist.observe(this, Observer {
-            binding.homeFaultSongs.text = "Contains: ${it.size} songs"
+            playlistInfo[1] = "Contains: ${it.size} songs"
+            binding.homeFaultSongs.text = playlistInfo[1]
         })
         trackViewModel.homeTimeoutPlaylist.observe(this, Observer {
-            binding.homeTimeSongs.text = "Contains: ${it.size} songs"
+            playlistInfo[2] = "Contains: ${it.size} songs"
+            binding.homeTimeSongs.text = playlistInfo[2]
         })
         trackViewModel.guestGoalPlaylist.observe(this, Observer {
-            binding.guestGoalSongs.text = "Contains: ${it.size} songs"
+            playlistInfo[3] = "Contains: ${it.size} songs"
+            binding.guestGoalSongs.text = playlistInfo[3]
         })
         trackViewModel.guestFaultPlaylist.observe(this, Observer {
-            binding.guestFaultSongs.text = "Contains: ${it.size} songs"
+            playlistInfo[4] = "Contains: ${it.size} songs"
+            binding.guestFaultSongs.text = playlistInfo[4]
         })
         trackViewModel.guestTimeoutPlaylist.observe(this, Observer {
-            binding.guestTimeSongs.text = "Contains: ${it.size} songs"
+            playlistInfo[5] = "Contains: ${it.size} songs"
+            binding.guestTimeSongs.text = playlistInfo[5]
         })
         trackViewModel.generalPlaylist.observe(this, Observer {
-            binding.generalIntrptSongs.text = "Contains: ${it.size} songs"
+            playlistInfo[6] = "Contains: ${it.size} songs"
+            binding.generalIntrptSongs.text = playlistInfo[6]
         })
 
     }

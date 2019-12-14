@@ -27,8 +27,37 @@ class TrackRepository(private val trackDao: TrackDao) {
         trackDao.insertOrUpdate(track)
     }
 
-    suspend fun resetHomeGoal(){
-        trackDao.resetHomeGoalPlaylist()
+    suspend fun resetPlaylist(playlistToReset: String){
+        when(playlistToReset) {
+            "Home Goals" -> {
+                Log.d(TAG, "Deleting home goals...")
+                trackDao.resetHomeGoalPlaylist()
+            }
+            "Home Faults" -> {
+                Log.d(TAG, "Deleting home faults...")
+                trackDao.resetHomeFaultPlaylist()
+            }
+            "Home Timeout" -> {
+                Log.d(TAG, "Deleting home timeouts...")
+                trackDao.resetHomeTimeoutPlaylist()
+            }
+            "Guest Goals" -> {
+                Log.d(TAG, "Deleting guest goals...")
+                trackDao.resetGuestGoalPlaylist()
+            }
+            "Guest Faults" -> {
+                Log.d(TAG, "Deleting guest faults...")
+                trackDao.resetGuestFaultPlaylist()
+            }
+            "Guest Timeout" -> {
+                Log.d(TAG, "Deleting guest timeouts...")
+                trackDao.resetGuestTimeoutPlaylist()
+            }
+            "Game Interruptions" -> {
+                Log.d(TAG, "Deleting general interruptions...")
+                trackDao.resetGenIntrptPlaylist()
+            }
+        }
     }
 
 //    fun getTracksInPlaylist(hockeyPlaylist:String)  {

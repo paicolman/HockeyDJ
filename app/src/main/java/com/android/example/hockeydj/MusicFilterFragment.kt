@@ -2,6 +2,8 @@ package com.android.example.hockeydj
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -21,7 +23,7 @@ import com.android.example.hockeydj.databinding.FragmentMusicFilterBinding
 import com.android.volley.VolleyError
 
 
-class MusicFilterFragment : Fragment(), MusicFilterAdapter.OnNoteListener, View.OnClickListener, SpotifyDataInterface  {
+class MusicFilterFragment : Fragment(), MusicFilterAdapter.OnNoteListener, SpotifyDataInterface  {
 
     private val TAG = "JZ:MusicFilterFrag"
     private val spotify = SpotifyService
@@ -34,7 +36,11 @@ class MusicFilterFragment : Fragment(), MusicFilterAdapter.OnNoteListener, View.
 
     //RecyclerView
     lateinit var musicList: RecyclerView
-    //var musicNames = mutableListOf<String>()
+
+    //Playlist Info
+    var iconId = 0
+    var name = ""
+    var info = ""
 
     //navigation
     lateinit var navController: NavController
@@ -44,7 +50,10 @@ class MusicFilterFragment : Fragment(), MusicFilterAdapter.OnNoteListener, View.
             "playlist" to hockeyPlaylist,
             "mode" to mode,
             "tracksUrl" to tracksUrl,
-            "albumImage" to holderImage
+            "albumImage" to holderImage,
+            "icon" to iconId,
+            "name" to name,
+            "info" to info
         )
         navController.navigate(R.id.action_musicFilterFragment_to_musicSelectionFragment, bundle)
     }
@@ -63,10 +72,15 @@ class MusicFilterFragment : Fragment(), MusicFilterAdapter.OnNoteListener, View.
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         Log.d(TAG, "onCreateView")
 
+
+
         arguments.let {args ->
             //Got arguments? Store them in the companion object
             Log.d(TAG,"Got arguments: setting...")
             val playlist = args?.getString("playlist")!!
+            iconId = args.getInt("icon")
+            name = args.getString("name","")
+            info = args.getString("info","")
             storedPlaylist = playlist
         }
 
@@ -74,10 +88,14 @@ class MusicFilterFragment : Fragment(), MusicFilterAdapter.OnNoteListener, View.
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_music_filter, container,false)
 
-        binding.filterSelect.setOnClickListener(this)
+        //binding.filterSelect.setOnClickListener(this)
         musicList = binding.musicRecyclerView
         musicList.addItemDecoration(DividerItemDecoration(this.context, DividerItemDecoration.VERTICAL))
         musicList.layoutManager = LinearLayoutManager(context)
+
+        binding.playlistIcon.setImageBitmap(BitmapFactory.decodeResource(resources, iconId))
+        binding.playlistTitle.text = name
+        binding.playlistSize.text = info
 
         spotify.getPlaylists()
 
@@ -97,29 +115,8 @@ class MusicFilterFragment : Fragment(), MusicFilterAdapter.OnNoteListener, View.
 
     }
 
-    override fun onClick(v: View?) {
-        Log.d(TAG, "CLICK!")
-        when (v) {
-            binding.filterSelect -> {
-                when(binding.filterSelect.text) {
-                    "PLAYLIST" -> {
-                        binding.filterSelect.text = "ALBUM"
-                        spotify.getAlbums()
-                        mode = "album"
-                    }
-                    "ALBUM" -> {
-                        binding.filterSelect.text = "PLAYLIST"
-                        spotify.getPlaylists()
-                        mode = "playlist"
-                    }
-                }
-            }
-        }
-        //navController.popBackStack()
-    }
-
     override fun mediaCollectionHandler(mediaCollection: List<MediaCollection>?) {
-        Log.d(TAG, "Now we need to show them playlists...")
+        Log.d(TAG, "Now we need to show those playlists...")
         mediaCollection?.let{
             updateMusicAdapter(it)
         }

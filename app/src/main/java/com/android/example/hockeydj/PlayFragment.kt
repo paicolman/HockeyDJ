@@ -36,7 +36,7 @@ class PlayFragment : Fragment(), View.OnClickListener, SpotifyReady, SpotifyCont
 
     //Active button
     private var activeButton: View? = null
-    private var activeColor: String = ""
+    private var activeColor: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d(TAG, "onCreate")
@@ -78,24 +78,23 @@ class PlayFragment : Fragment(), View.OnClickListener, SpotifyReady, SpotifyCont
     override fun onResume() {
         super.onResume()
         Log.d(TAG, "onResume")
-        activateButton(trackViewModel.homeGoalPlaylist, binding.homeGoalButton, "#7731ff7f")
-        activateButton(trackViewModel.guestGoalPlaylist, binding.guestGoalButton, "#7731ff7f")
-        activateButton(trackViewModel.homeFaultPlaylist, binding.homeFaultButton,"#77feff67")
-        activateButton(trackViewModel.guestFaultPlaylist, binding.guestFaultButton,"#77feff67")
-        activateButton(trackViewModel.homeTimeoutPlaylist, binding.homeTimeoutButton,"#77fa6166")
+        activateButton(trackViewModel.homeGoalPlaylist, binding.homeGoalButton, R.drawable.goal_off)
+        activateButton(trackViewModel.guestGoalPlaylist, binding.guestGoalButton, R.drawable.goal_off)
+        activateButton(trackViewModel.homeFaultPlaylist, binding.homeFaultButton, R.drawable.fault_off)
+        activateButton(trackViewModel.guestFaultPlaylist, binding.guestFaultButton,R.drawable.fault_off)
+        activateButton(trackViewModel.homeTimeoutPlaylist, binding.homeTimeoutButton,R.drawable.time_list)
         activateButton(trackViewModel.guestTimeoutPlaylist, binding.guestTimeoutButton,"#77fa6166")
         activateButton(trackViewModel.generalPlaylist, binding.generalInterruptButton,"#77157bfe")
     }
 
-    private fun activateButton(livePlaylist: LiveData<List<Track>>, v:View, colorString: String) {
+    private fun activateButton(livePlaylist: LiveData<List<Track>>, v:View, bgnd: Int) {
         if (!livePlaylist.value.isNullOrEmpty()) {
-            Log.d(TAG,"ENABLING: $v")
             v.isEnabled = true
-            v.setBackgroundColor(Color.parseColor(colorString))
+            //v.setBackgroundColor(Color.parseColor(colorString))
+            v.background = context?.getDrawable(bgnd)
         } else {
-            Log.d(TAG,"disabling: $v")
             v.isEnabled = false
-            v.setBackgroundColor(Color.parseColor("#77777777"))
+            v.background = context?.getDrawable(R.drawable.disabled)
         }
     }
 
@@ -134,50 +133,56 @@ class PlayFragment : Fragment(), View.OnClickListener, SpotifyReady, SpotifyCont
         }
         when(v){
             binding.homeGoalButton -> {
-                activeButton?.setBackgroundColor(Color.parseColor(activeColor))
-                activeColor = "#7731ff7f"
-                binding.homeGoalButton.setBackgroundColor(Color.parseColor("#ff31ff7f"))
+                activeButton?.background = context?.getDrawable(R.drawable.goal_off)
+                activeColor = R.drawable.goal_off
+                binding.homeGoalButton.background = context?.getDrawable(R.drawable.goal_on)
                 playRandom(trackViewModel.homeGoalPlaylist.value)
             }
             binding.guestGoalButton -> {
-                activeButton?.setBackgroundColor(Color.parseColor(activeColor))
-                activeColor = "#7731ff7f"
-                binding.guestGoalButton.setBackgroundColor(Color.parseColor("#ff31ff7f"))
+                activeButton?.context?.getDrawable(R.drawable.goal_off)
+                activeColor = R.drawable.goal_off
+                binding.homeGoalButton.background = context?.getDrawable(R.drawable.goal_on)
+                //binding.guestGoalButton.setBackgroundColor(Color.parseColor("#ff31ff7f"))
                 playRandom(trackViewModel.guestGoalPlaylist.value)
             }
             binding.homeFaultButton -> {
-                activeButton?.setBackgroundColor(Color.parseColor(activeColor))
-                activeColor = "#77feff67"
-                binding.homeFaultButton.setBackgroundColor(Color.parseColor("#fffeff67"))
+                activeButton?.context?.getDrawable(R.drawable.fault_off)
+                activeColor = R.drawable.fault_off
+                binding.homeGoalButton.background = context?.getDrawable(R.drawable.fault_on)
+                //binding.homeFaultButton.setBackgroundColor(Color.parseColor("#fffeff67"))
                 playRandom(trackViewModel.homeFaultPlaylist.value)
             }
             binding.guestFaultButton -> {
-                activeButton?.setBackgroundColor(Color.parseColor(activeColor))
-                activeColor = "#77feff67"
-                binding.guestFaultButton.setBackgroundColor(Color.parseColor("#fffeff67"))
+                activeButton?.context?.getDrawable(R.drawable.fault_off)
+                activeColor = R.drawable.goal_off
+                binding.homeGoalButton.background = context?.getDrawable(R.drawable.fault_on)
+                //binding.guestFaultButton.setBackgroundColor(Color.parseColor("#fffeff67"))
                 playRandom(trackViewModel.guestFaultPlaylist.value)
             }
             binding.homeTimeoutButton -> {
-                activeButton?.setBackgroundColor(Color.parseColor(activeColor))
-                activeColor = "#77fa6166"
-                binding.homeTimeoutButton.setBackgroundColor(Color.parseColor("#fffa6166"))
+                activeButton?.context?.getDrawable(R.drawable.goal_off)
+                activeColor = R.drawable.goal_off
+                binding.homeGoalButton.background = context?.getDrawable(R.drawable.goal_on)
+                //binding.homeTimeoutButton.setBackgroundColor(Color.parseColor("#fffa6166"))
                 playRandom(trackViewModel.homeTimeoutPlaylist.value)
             }
             binding.guestTimeoutButton -> {
-                activeButton?.setBackgroundColor(Color.parseColor(activeColor))
-                activeColor = "#77fa6166"
-                binding.guestTimeoutButton.setBackgroundColor(Color.parseColor("#fffa6166"))
+                activeButton?.context?.getDrawable(R.drawable.goal_off)
+                activeColor = R.drawable.goal_off
+                binding.homeGoalButton.background = context?.getDrawable(R.drawable.goal_on)
+                //binding.guestTimeoutButton.setBackgroundColor(Color.parseColor("#fffa6166"))
                 playRandom(trackViewModel.guestTimeoutPlaylist.value)
             }
             binding.generalInterruptButton -> {
-                activeButton?.setBackgroundColor(Color.parseColor(activeColor))
-                activeColor = "#77157bfe"
-                binding.generalInterruptButton.setBackgroundColor(Color.parseColor("#ff157bfe"))
+                activeButton?.context?.getDrawable(R.drawable.goal_off)
+                activeColor = R.drawable.goal_off
+                binding.homeGoalButton.background = context?.getDrawable(R.drawable.goal_on)
+                //binding.generalInterruptButton.setBackgroundColor(Color.parseColor("#ff157bfe"))
                 playRandom(trackViewModel.generalPlaylist.value)
             }
             binding.stopButton -> {
-                activeButton?.setBackgroundColor(Color.parseColor(activeColor))
-                activeColor = "#77ff0000"
+                activeButton?.context?.getDrawable(R.drawable.goal_off)
+                activeColor = R.drawable.goal_off
                 binding.stopButton.setBackgroundColor(Color.parseColor("#ffff0000"))
                 stop()
                 var bm = BitmapFactory.decodeResource(resources, R.drawable.nosound)

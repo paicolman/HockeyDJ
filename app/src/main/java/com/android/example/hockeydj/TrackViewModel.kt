@@ -49,11 +49,6 @@ class TrackViewModel(application: Application) : AndroidViewModel(application) {
 
     fun resetPlaylist(playlist: String) = viewModelScope.async {
         Log.d(TAG, "Deleting playlist...")
-        when(playlist) {
-            "Home Goals" -> {
-                Log.d(TAG, "Deleting home goals...")
-                repository.resetHomeGoal()
-            }
-        }
+        repository.resetPlaylist(playlist)
     }
 }

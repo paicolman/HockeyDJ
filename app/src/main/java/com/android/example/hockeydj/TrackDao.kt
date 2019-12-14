@@ -45,6 +45,24 @@ interface TrackDao {
     @Query("UPDATE tracks SET homeGoal = 0")
     suspend fun resetHomeGoalPlaylist()
 
+    @Query("UPDATE tracks SET homeFault = 0")
+    suspend fun resetHomeFaultPlaylist()
+
+    @Query("UPDATE tracks SET homeTimeout = 0")
+    suspend fun resetHomeTimeoutPlaylist()
+
+    @Query("UPDATE tracks SET guestGoal = 0")
+    suspend fun resetGuestGoalPlaylist()
+
+    @Query("UPDATE tracks SET guestFault = 0")
+    suspend fun resetGuestFaultPlaylist()
+
+    @Query("UPDATE tracks SET guestTimeout = 0")
+    suspend fun resetGuestTimeoutPlaylist()
+
+    @Query("UPDATE tracks SET genIntrpt = 0")
+    suspend fun resetGenIntrptPlaylist()
+
     @Query("SELECT * from tracks WHERE :trackUri LIKE track_uri")
     fun getTrackWithTrackUri(trackUri: String): Track?
 }

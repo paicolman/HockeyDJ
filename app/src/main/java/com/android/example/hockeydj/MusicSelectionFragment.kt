@@ -1,6 +1,7 @@
 package com.android.example.hockeydj
 
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.os.Parcelable
 import android.util.Log
@@ -63,6 +64,13 @@ class MusicSelectionFragment : Fragment(), SpotifyTrackInterface, MusicSelection
         val tracksUrl = arguments?.getString("tracksUrl")!! //TODO: This is ok-ish, but not really safe...
         albumArtwork = arguments?.getParcelable<Bitmap?>("albumImage")!! //TODO: This is ok-ish, but not really safe...
         hockeyPlaylist = arguments?.getString("playlist")!! //TODO: This is ok-ish, but not really safe...
+        val iconId = arguments?.getInt("icon")!!
+        val name = arguments?.getString("name")
+        val info = arguments?.getString("info")
+
+        binding.playlistIcon.setImageBitmap(BitmapFactory.decodeResource(resources, iconId))
+        binding.playlistTitle.text = name
+        binding.playlistInfo.text = info
 
         addPlaylistObserver()
 
