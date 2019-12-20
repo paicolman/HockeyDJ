@@ -5,6 +5,8 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -12,10 +14,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.android.example.hockeydj.BackgroundSet.applicationContext
 import com.android.example.hockeydj.databinding.FragmentPlayBinding
 import com.spotify.sdk.android.authentication.AuthenticationResponse
 import kotlin.random.Random
@@ -62,6 +66,19 @@ class PlayFragment : Fragment(), View.OnClickListener, SpotifyReady, SpotifyCont
         binding.generalInterruptButton.setOnClickListener(this)
         binding.stopButton.setOnClickListener(this)
         binding.nowPlaying.setSelected(true)
+
+        val backgroundSet = BackgroundSet
+        backgroundSet.applicationContext = requireContext()
+        backgroundSet.loadImage()
+        backgroundSet.loadSettings()
+
+        binding.backPane.setImageDrawable(backgroundSet.bitmap)
+        binding.backPane.alpha = backgroundSet.alpha
+        binding.backPane.scaleType = backgroundSet.scaleType
+
+//        binding.playFrame.background = backgroundSet.bitmap
+//        binding.playFrame.background.alpha = backgroundSet.alpha
+//        binding.playFrame.background
         return binding.root
     }
 
@@ -82,9 +99,18 @@ class PlayFragment : Fragment(), View.OnClickListener, SpotifyReady, SpotifyCont
         activateButton(trackViewModel.guestGoalPlaylist, binding.guestGoalButton, R.drawable.goal_off)
         activateButton(trackViewModel.homeFaultPlaylist, binding.homeFaultButton, R.drawable.fault_off)
         activateButton(trackViewModel.guestFaultPlaylist, binding.guestFaultButton,R.drawable.fault_off)
-        activateButton(trackViewModel.homeTimeoutPlaylist, binding.homeTimeoutButton,R.drawable.time_list)
-        activateButton(trackViewModel.guestTimeoutPlaylist, binding.guestTimeoutButton,"#77fa6166")
-        activateButton(trackViewModel.generalPlaylist, binding.generalInterruptButton,"#77157bfe")
+        activateButton(trackViewModel.homeTimeoutPlaylist, binding.homeTimeoutButton,R.drawable.time_off)
+        activateButton(trackViewModel.guestTimeoutPlaylist, binding.guestTimeoutButton,R.drawable.time_off)
+        activateButton(trackViewModel.generalPlaylist, binding.generalInterruptButton,R.drawable.general_off)
+
+        val backgroundSet = BackgroundSet
+        backgroundSet.applicationContext = requireContext()
+        backgroundSet.loadImage()
+        backgroundSet.loadSettings()
+
+        binding.backPane.setImageDrawable(backgroundSet.bitmap)
+        binding.backPane.alpha = backgroundSet.alpha
+        binding.backPane.scaleType = backgroundSet.scaleType
     }
 
     private fun activateButton(livePlaylist: LiveData<List<Track>>, v:View, bgnd: Int) {
@@ -125,65 +151,54 @@ class PlayFragment : Fragment(), View.OnClickListener, SpotifyReady, SpotifyCont
 
 
     override fun onClick(v: View?) {
-        binding.stopButton.setBackgroundColor(Color.parseColor("#77dd0000"))
+        binding.stopButton.background = context?.getDrawable(R.drawable.stop_off)
         if (v != binding.stopButton) {
             var bm = BitmapFactory.decodeResource(resources, R.drawable.sound)
             binding.soundOnOff.setImageBitmap(Bitmap.createBitmap(bm))
 
         }
+        activeButton?.background = context?.getDrawable(activeColor)
         when(v){
             binding.homeGoalButton -> {
-                activeButton?.background = context?.getDrawable(R.drawable.goal_off)
                 activeColor = R.drawable.goal_off
                 binding.homeGoalButton.background = context?.getDrawable(R.drawable.goal_on)
                 playRandom(trackViewModel.homeGoalPlaylist.value)
             }
             binding.guestGoalButton -> {
-                activeButton?.context?.getDrawable(R.drawable.goal_off)
                 activeColor = R.drawable.goal_off
-                binding.homeGoalButton.background = context?.getDrawable(R.drawable.goal_on)
+                binding.guestGoalButton.background = context?.getDrawable(R.drawable.goal_on)
                 //binding.guestGoalButton.setBackgroundColor(Color.parseColor("#ff31ff7f"))
                 playRandom(trackViewModel.guestGoalPlaylist.value)
             }
             binding.homeFaultButton -> {
-                activeButton?.context?.getDrawable(R.drawable.fault_off)
                 activeColor = R.drawable.fault_off
-                binding.homeGoalButton.background = context?.getDrawable(R.drawable.fault_on)
+                binding.homeFaultButton.background = context?.getDrawable(R.drawable.fault_on)
                 //binding.homeFaultButton.setBackgroundColor(Color.parseColor("#fffeff67"))
                 playRandom(trackViewModel.homeFaultPlaylist.value)
             }
             binding.guestFaultButton -> {
-                activeButton?.context?.getDrawable(R.drawable.fault_off)
-                activeColor = R.drawable.goal_off
-                binding.homeGoalButton.background = context?.getDrawable(R.drawable.fault_on)
-                //binding.guestFaultButton.setBackgroundColor(Color.parseColor("#fffeff67"))
+                activeColor = R.drawable.fault_off
+                binding.guestFaultButton.background = context?.getDrawable(R.drawable.fault_on)
                 playRandom(trackViewModel.guestFaultPlaylist.value)
             }
             binding.homeTimeoutButton -> {
-                activeButton?.context?.getDrawable(R.drawable.goal_off)
-                activeColor = R.drawable.goal_off
-                binding.homeGoalButton.background = context?.getDrawable(R.drawable.goal_on)
-                //binding.homeTimeoutButton.setBackgroundColor(Color.parseColor("#fffa6166"))
+                activeColor = R.drawable.time_off
+                binding.homeTimeoutButton.background = context?.getDrawable(R.drawable.time_on)
                 playRandom(trackViewModel.homeTimeoutPlaylist.value)
             }
             binding.guestTimeoutButton -> {
-                activeButton?.context?.getDrawable(R.drawable.goal_off)
-                activeColor = R.drawable.goal_off
-                binding.homeGoalButton.background = context?.getDrawable(R.drawable.goal_on)
-                //binding.guestTimeoutButton.setBackgroundColor(Color.parseColor("#fffa6166"))
+                activeColor = R.drawable.time_off
+                binding.guestTimeoutButton.background = context?.getDrawable(R.drawable.time_on)
                 playRandom(trackViewModel.guestTimeoutPlaylist.value)
             }
             binding.generalInterruptButton -> {
-                activeButton?.context?.getDrawable(R.drawable.goal_off)
-                activeColor = R.drawable.goal_off
-                binding.homeGoalButton.background = context?.getDrawable(R.drawable.goal_on)
-                //binding.generalInterruptButton.setBackgroundColor(Color.parseColor("#ff157bfe"))
+                activeColor = R.drawable.general_off
+                binding.generalInterruptButton.background = context?.getDrawable(R.drawable.general_on)
                 playRandom(trackViewModel.generalPlaylist.value)
             }
             binding.stopButton -> {
-                activeButton?.context?.getDrawable(R.drawable.goal_off)
-                activeColor = R.drawable.goal_off
-                binding.stopButton.setBackgroundColor(Color.parseColor("#ffff0000"))
+                activeColor = R.drawable.stop_off
+                binding.stopButton.background = context?.getDrawable(R.drawable.stop_on)
                 stop()
                 var bm = BitmapFactory.decodeResource(resources, R.drawable.nosound)
                 binding.soundOnOff.setImageBitmap(Bitmap.createBitmap(bm))

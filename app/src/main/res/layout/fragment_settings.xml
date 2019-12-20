@@ -1,27 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".SettingsFragment">
 
-        <!-- TODO: Update blank fragment layout -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="?attr/actionBarSize"
-            android:background="#00BCD4">
+            android:layout_height="match_parent">
 
             <TextView
+                android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="SETTINGS"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/hockey_font_02"
+                android:text="Backdrop Preview:"
+                app:layout_constraintEnd_toEndOf="@+id/previewBorder"
+                app:layout_constraintStart_toStartOf="@+id/previewBorder"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/previewBorder"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imagePreview"
+                app:layout_constraintEnd_toEndOf="@+id/imagePreview"
+                app:layout_constraintStart_toStartOf="@+id/imagePreview"
+                app:layout_constraintTop_toTopOf="@+id/imagePreview"
+                app:srcCompat="@drawable/preview_border" />
+
+            <ImageView
+                android:id="@+id/imagePreview"
+                android:layout_width="140dp"
+                android:layout_height="216dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView8"
+                app:srcCompat="@drawable/background_set" />
+
+            <Button
+                android:id="@+id/scaleType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="FILL IMAGE"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imagePreview"
+                app:layout_constraintTop_toTopOf="@+id/imagePreview" />
+
+            <Button
+                android:id="@+id/loadImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Load image"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imagePreview"
+                app:layout_constraintTop_toBottomOf="@+id/scaleType" />
+
+            <Button
+                android:id="@+id/useDefault"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Use Default"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imagePreview"
+                app:layout_constraintTop_toBottomOf="@+id/loadImage" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/hockey_font_02"
+                android:text="Transparency:"
+                app:layout_constraintEnd_toEndOf="@+id/previewBorder"
+                app:layout_constraintStart_toStartOf="@+id/previewBorder"
+                app:layout_constraintTop_toBottomOf="@+id/previewBorder" />
+
+            <SeekBar
+                android:id="@+id/transparency"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="24dp"
+                android:progressDrawable="@drawable/seek_bar"
+                android:thumb="@drawable/seek_thumb"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imagePreview"
+                app:layout_constraintEnd_toEndOf="@+id/imagePreview"
+                app:layout_constraintStart_toStartOf="@+id/imagePreview"
+                app:layout_constraintTop_toTopOf="@+id/imagePreview" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </FrameLayout>

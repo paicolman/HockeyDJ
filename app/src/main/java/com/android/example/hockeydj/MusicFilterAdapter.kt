@@ -32,7 +32,7 @@ class MusicFilterAdapter(private val context: Context, private val media: List<M
         holder.mediaName.text = media.get(position).name
         holder.mediaInfo.text = "Contains ${media.get(position).tracks} songs"
         requestBitmap(media.get(position).imageUrl, holder)
-        holder.itemView.setBackgroundColor(Color.WHITE)
+        //holder.itemView.setBackgroundColor(Color.WHITE)
     }
 
     fun requestBitmap(url: String, holder: ViewHolder) {
@@ -66,7 +66,7 @@ class MusicFilterAdapter(private val context: Context, private val media: List<M
         override fun onClick(v: View?) {
             val tracskUrl = media.get(adapterPosition).tracksUrl
             noteListener.onNoteClick(tracskUrl, holderImage)
-            //v?.setBackgroundColor(Color.GREEN)
+            //v?.setBackgroundColor(Color.parseColor("#00FF0000"))
         }
 
         val mediaName: TextView = itemView.findViewById(R.id.collection_name)

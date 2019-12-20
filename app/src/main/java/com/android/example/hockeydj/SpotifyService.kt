@@ -26,7 +26,7 @@ object SpotifyService {
     lateinit var context: Context
 
     var spotifyAvailable = false
-    private val REQUEST_CODE = 1445
+    val REQUEST_CODE = 1445
     private var TOKEN = "No Token"
 
     lateinit private var connectionParams: ConnectionParams
@@ -85,7 +85,6 @@ object SpotifyService {
             })
     }
 
-
     fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?) {
 
         Log.d(TAG, "onActivityResult")
@@ -127,10 +126,9 @@ object SpotifyService {
             // TODO: Most likely auth flow was cancelled
             // TODO: Handle other cases
         } else {
-            Log.d(TAG, "requestCode == something else: $requestCode")
+            Log.d(TAG, "requestCode == Not from me: $requestCode")
         }
     }
-
 
     //TODO: This gets only the first twenty playlists - need to generalize somehow...
     fun getPlaylists(){
@@ -362,7 +360,6 @@ interface SpotifyTrackInterface {
     fun tracksHandler(tracks: List<Track>)
     fun trackRequestError(volleyError: VolleyError)
 }
-
 
 interface SpotifyControlInterface {
     fun playing()
