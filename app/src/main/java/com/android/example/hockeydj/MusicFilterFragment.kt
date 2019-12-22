@@ -97,6 +97,14 @@ class MusicFilterFragment : Fragment(), MusicFilterAdapter.OnNoteListener, Spoti
         binding.playlistTitle.text = name
         binding.playlistSize.text = info
 
+        val backgroundSet = BackgroundSet
+        backgroundSet.applicationContext = requireContext()
+        backgroundSet.loadImage()
+        backgroundSet.loadSettings()
+        binding.backPane.setImageDrawable(backgroundSet.bitmap)
+        binding.backPane.alpha = backgroundSet.alpha
+        binding.backPane.scaleType = backgroundSet.scaleType
+
         spotify.getPlaylists()
 
         return binding.root
@@ -106,6 +114,19 @@ class MusicFilterFragment : Fragment(), MusicFilterAdapter.OnNoteListener, Spoti
         Log.d(TAG, "onViewCreated")
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val backgroundSet = BackgroundSet
+        backgroundSet.applicationContext = requireContext()
+        backgroundSet.loadImage()
+        backgroundSet.loadSettings()
+
+        binding.backPane.setImageDrawable(backgroundSet.bitmap)
+        binding.backPane.alpha = backgroundSet.alpha
+        binding.backPane.scaleType = backgroundSet.scaleType
     }
 
     fun updateMusicAdapter(items: List<MediaCollection>){

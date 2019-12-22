@@ -3,540 +3,583 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-        <ScrollView
+    <RelativeLayout
+        android:id="@+id/LinearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/backPane"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:isScrollContainer="false"
-            android:background="@drawable/background_set">
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <LinearLayout
+        <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:clickable="true"
-                android:orientation="vertical">
+                android:isScrollContainer="false">
 
-                <TextView
-                    android:id="@+id/textView"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#D9D9D9"
-                    android:paddingStart="16dp"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:text="Home Team"
-                    android:textSize="20sp" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/homeGoal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:tag="homeGoal">
-
-                    <ImageView
-                        android:id="@+id/homeGoalImage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:src="@drawable/goal_list"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/homeGoalDelete"
-                        app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/homeGoalTitle"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/textView"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        android:text="Home Goal Playlist"
-                        android:textSize="18sp"
-                        app:layout_constraintStart_toEndOf="@+id/homeGoalImage"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:background="#D9D9D9"
+                        android:fontFamily="@font/hockey_font_02"
+                        android:paddingStart="16dp"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
+                        android:text="Home Team"
+                        android:textColor="#3F51B5"
+                        android:textSize="20sp" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/homeGoal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:tag="homeGoal">
+
+                        <ImageView
+                            android:id="@+id/homeGoalImage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:src="@drawable/goal_list"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/homeGoalDelete"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/homeGoalTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="Home Goal Playlist"
+                            android:textColor="#000000"
+                            android:textSize="18sp"
+                            app:layout_constraintStart_toEndOf="@+id/homeGoalImage"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/homeGoalSongs"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:text="TextView"
+                            android:textColor="#000000"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toEndOf="@+id/homeGoalImage"
+                            app:layout_constraintTop_toBottomOf="@+id/homeGoalTitle" />
+
+                        <ImageButton
+                            android:id="@+id/homeGoalDisclosure"
+                            android:layout_width="20dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:background="#00ffffff"
+                            android:src="@drawable/right_arrow"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageButton
+                            android:id="@+id/homeGoalDelete"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="#00FFFFFF"
+                            android:tag="Home Goals"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@android:drawable/presence_busy" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <View
+                        android:id="@+id/divider1"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#D9D9D9" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/homeFault"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:tag="homeFault">
+
+                        <ImageView
+                            android:id="@+id/homeFaultImage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:src="@drawable/fault_list"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/homeFaultDelete"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/homeFaultTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="Home Faults Playlist"
+                            android:textColor="#000000"
+                            android:textSize="18sp"
+                            app:layout_constraintStart_toEndOf="@+id/homeFaultImage"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/homeFaultSongs"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:text="TextView"
+                            android:textColor="#000000"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toEndOf="@+id/homeFaultImage"
+                            app:layout_constraintTop_toBottomOf="@+id/homeFaultTitle" />
+
+                        <ImageButton
+                            android:id="@+id/homeFaultDisclosure"
+                            android:layout_width="20dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:background="#00ffffff"
+                            android:src="@drawable/right_arrow"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageButton
+                            android:id="@+id/homeFaultDelete"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="#00FFFFFF"
+                            android:tag="Home Faults"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@android:drawable/presence_busy" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <View
+                        android:id="@+id/divider2"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#D9D9D9" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/homeTimeout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:tag="homeTimeout">
+
+                        <ImageView
+                            android:id="@+id/homeTimeImage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:src="@drawable/time_list"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/homeTimeDelete"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/homeTimeTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="Home Timeout Playlist"
+                            android:textColor="#000000"
+                            android:textSize="18sp"
+                            app:layout_constraintStart_toEndOf="@+id/homeTimeImage"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/homeTimeSongs"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:text="TextView"
+                            android:textColor="#000000"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toEndOf="@+id/homeTimeImage"
+                            app:layout_constraintTop_toBottomOf="@+id/homeTimeTitle" />
+
+                        <ImageButton
+                            android:id="@+id/homeTimeDisclosure"
+                            android:layout_width="20dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:background="#00ffffff"
+                            android:src="@drawable/right_arrow"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageButton
+                            android:id="@+id/homeTimeDelete"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="#00FFFFFF"
+                            android:tag="Home Timeout"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@android:drawable/presence_busy" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
-                        android:id="@+id/homeGoalSongs"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/textView6"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        android:text="TextView"
-                        android:textSize="12sp"
-                        app:layout_constraintStart_toEndOf="@+id/homeGoalImage"
-                        app:layout_constraintTop_toBottomOf="@+id/homeGoalTitle" />
+                        android:background="#D9D9D9"
+                        android:fontFamily="@font/hockey_font_02"
+                        android:paddingStart="16dp"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
+                        android:text="Guest Team"
+                        android:textColor="#673AB7"
+                        android:textSize="20sp" />
 
-                    <ImageButton
-                        android:id="@+id/homeGoalDisclosure"
-                        android:layout_width="20dp"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/guestGoal"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:background="#00ffffff"
-                        android:src="@drawable/right_arrow"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:tag="guestGoal">
 
-                    <ImageButton
-                        android:id="@+id/homeGoalDelete"
-                        android:layout_width="wrap_content"
+                        <ImageView
+                            android:id="@+id/guestGoalImage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:src="@drawable/goal_list"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/guestGoalDelete"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/guestGoalTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="Guest Goal Playlist"
+                            android:textColor="#000000"
+                            android:textSize="18sp"
+                            app:layout_constraintStart_toEndOf="@+id/guestGoalImage"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/guestGoalSongs"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:text="TextView"
+                            android:textColor="#000000"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toEndOf="@+id/guestGoalImage"
+                            app:layout_constraintTop_toBottomOf="@+id/guestGoalTitle" />
+
+                        <ImageButton
+                            android:id="@+id/guestGoalDisclosure"
+                            android:layout_width="20dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:background="#00ffffff"
+                            android:src="@drawable/right_arrow"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageButton
+                            android:id="@+id/guestGoalDelete"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="#00FFFFFF"
+                            android:tag="Guest Goals"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@android:drawable/presence_busy" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <View
+                        android:id="@+id/divider3"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#D9D9D9" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/guestFault"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:backgroundTint="#00FFFFFF"
-                        android:tag="Home Goals"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@android:drawable/presence_busy" />
+                        android:tag="guestFault">
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                        <ImageView
+                            android:id="@+id/guestFaultImage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:src="@drawable/fault_list"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/guestFaultDelete"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                <View
-                    android:id="@+id/divider1"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#D9D9D9" />
+                        <TextView
+                            android:id="@+id/guestFaultTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="Guest Faults Playlist"
+                            android:textColor="#000000"
+                            android:textSize="18sp"
+                            app:layout_constraintStart_toEndOf="@+id/guestFaultImage"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/homeFault"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:tag="homeFault">
+                        <TextView
+                            android:id="@+id/guestFaultSongs"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:text="TextView"
+                            android:textColor="#000000"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toEndOf="@+id/guestFaultImage"
+                            app:layout_constraintTop_toBottomOf="@+id/guestFaultTitle" />
 
-                    <ImageView
-                        android:id="@+id/homeFaultImage"
-                        android:layout_width="wrap_content"
+                        <ImageButton
+                            android:id="@+id/guestFaultDisclosure"
+                            android:layout_width="20dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:background="#00ffffff"
+                            android:src="@drawable/right_arrow"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageButton
+                            android:id="@+id/guestFaultDelete"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="#00FFFFFF"
+                            android:tag="Guest Faults"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@android:drawable/presence_busy" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <View
+                        android:id="@+id/divider4"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#D9D9D9" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/guestTimeout"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:src="@drawable/fault_list"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/homeFaultDelete"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:tag="guestTimeout">
+
+                        <ImageView
+                            android:id="@+id/guestTimeImage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:src="@drawable/time_list"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/guestTimeDelete"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/guestTimeTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:text="Guest Timeout Playlist"
+                            android:textColor="#000000"
+                            android:textSize="18sp"
+                            app:layout_constraintStart_toEndOf="@+id/guestTimeImage"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/guestTimeSongs"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:text="TextView"
+                            android:textColor="#000000"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toEndOf="@+id/guestTimeImage"
+                            app:layout_constraintTop_toBottomOf="@+id/guestTimeTitle" />
+
+                        <ImageButton
+                            android:id="@+id/guestTimeDisclosure"
+                            android:layout_width="20dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:background="#00ffffff"
+                            android:src="@drawable/right_arrow"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageButton
+                            android:id="@+id/guestTimeDelete"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="#00FFFFFF"
+                            android:tag="Guest Timeout"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@android:drawable/presence_busy" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
-                        android:id="@+id/homeFaultTitle"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/textView7"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        android:text="Home Faults Playlist"
-                        android:textSize="18sp"
-                        app:layout_constraintStart_toEndOf="@+id/homeFaultImage"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:background="#D9D9D9"
+                        android:fontFamily="@font/hockey_font_02"
+                        android:paddingStart="16dp"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
+                        android:text="General"
+                        android:textColor="#222222"
+                        android:textSize="20sp" />
 
-                    <TextView
-                        android:id="@+id/homeFaultSongs"
-                        android:layout_width="wrap_content"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/generalInterruption"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        android:text="TextView"
-                        android:textSize="12sp"
-                        app:layout_constraintStart_toEndOf="@+id/homeFaultImage"
-                        app:layout_constraintTop_toBottomOf="@+id/homeFaultTitle" />
+                        android:tag="genIntrpt">
 
-                    <ImageButton
-                        android:id="@+id/homeFaultDisclosure"
-                        android:layout_width="20dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:background="#00ffffff"
-                        android:src="@drawable/right_arrow"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        <ImageView
+                            android:id="@+id/generalIntrptImage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:src="@drawable/gen_list"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/generalIntrptDelete"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                    <ImageButton
-                        android:id="@+id/homeFaultDelete"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="#00FFFFFF"
-                        android:tag="Home Faults"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@android:drawable/presence_busy" />
+                        <TextView
+                            android:id="@+id/generalIntrptTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="Game Interruption Playlist"
+                            android:textColor="#000000"
+                            android:textSize="18sp"
+                            app:layout_constraintStart_toEndOf="@+id/generalIntrptImage"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                        <TextView
+                            android:id="@+id/generalIntrptSongs"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:text="TextView"
+                            android:textColor="#000000"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toEndOf="@+id/generalIntrptImage"
+                            app:layout_constraintTop_toBottomOf="@+id/generalIntrptTitle" />
 
-                <View
-                    android:id="@+id/divider2"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#D9D9D9" />
+                        <ImageButton
+                            android:id="@+id/generalIntrptDisclosure"
+                            android:layout_width="20dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:background="#00ffffff"
+                            android:src="@drawable/right_arrow"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/homeTimeout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:tag="homeTimeout">
+                        <ImageButton
+                            android:id="@+id/generalIntrptDelete"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="#00FFFFFF"
+                            android:tag="Game Interruptions"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@android:drawable/presence_busy" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <ImageView
-                        android:id="@+id/homeTimeImage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:src="@drawable/time_list"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/homeTimeDelete"
-                        app:layout_constraintTop_toTopOf="parent" />
+                    <View
+                        android:id="@+id/divider5"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#D9D9D9" />
 
-                    <TextView
-                        android:id="@+id/homeTimeTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        android:text="Home Timeout Playlist"
-                        android:textSize="18sp"
-                        app:layout_constraintStart_toEndOf="@+id/homeTimeImage"
-                        app:layout_constraintTop_toTopOf="parent" />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/buffer"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp" />
 
-                    <TextView
-                        android:id="@+id/homeTimeSongs"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        android:text="TextView"
-                        android:textSize="12sp"
-                        app:layout_constraintStart_toEndOf="@+id/homeTimeImage"
-                        app:layout_constraintTop_toBottomOf="@+id/homeTimeTitle" />
+                </LinearLayout>
+            </ScrollView>
 
-                    <ImageButton
-                        android:id="@+id/homeTimeDisclosure"
-                        android:layout_width="20dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:background="#00ffffff"
-                        android:src="@drawable/right_arrow"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+    </RelativeLayout>
 
-                    <ImageButton
-                        android:id="@+id/homeTimeDelete"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="#00FFFFFF"
-                        android:tag="Home Timeout"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@android:drawable/presence_busy" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <TextView
-                    android:id="@+id/textView6"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#D9D9D9"
-                    android:paddingStart="16dp"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:text="Guest Team"
-                    android:textSize="20sp" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/guestGoal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:tag="guestGoal">
-
-                    <ImageView
-                        android:id="@+id/guestGoalImage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:src="@drawable/goal_list"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/guestGoalDelete"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/guestGoalTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        android:text="Guest Goal Playlist"
-                        android:textSize="18sp"
-                        app:layout_constraintStart_toEndOf="@+id/guestGoalImage"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/guestGoalSongs"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        android:text="TextView"
-                        android:textSize="12sp"
-                        app:layout_constraintStart_toEndOf="@+id/guestGoalImage"
-                        app:layout_constraintTop_toBottomOf="@+id/guestGoalTitle" />
-
-                    <ImageButton
-                        android:id="@+id/guestGoalDisclosure"
-                        android:layout_width="20dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:background="#00ffffff"
-                        android:src="@drawable/right_arrow"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <ImageButton
-                        android:id="@+id/guestGoalDelete"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="#00FFFFFF"
-                        android:tag="Guest Goals"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@android:drawable/presence_busy" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <View
-                    android:id="@+id/divider3"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#D9D9D9" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/guestFault"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:tag="guestFault">
-
-                    <ImageView
-                        android:id="@+id/guestFaultImage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:src="@drawable/fault_list"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/guestFaultDelete"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/guestFaultTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        android:text="Guest Faults Playlist"
-                        android:textSize="18sp"
-                        app:layout_constraintStart_toEndOf="@+id/guestFaultImage"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/guestFaultSongs"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        android:text="TextView"
-                        android:textSize="12sp"
-                        app:layout_constraintStart_toEndOf="@+id/guestFaultImage"
-                        app:layout_constraintTop_toBottomOf="@+id/guestFaultTitle" />
-
-                    <ImageButton
-                        android:id="@+id/guestFaultDisclosure"
-                        android:layout_width="20dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:background="#00ffffff"
-                        android:src="@drawable/right_arrow"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <ImageButton
-                        android:id="@+id/guestFaultDelete"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="#00FFFFFF"
-                        android:tag="Guest Faults"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@android:drawable/presence_busy" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <View
-                    android:id="@+id/divider4"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#D9D9D9" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/guestTimeout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:tag="guestTimeout">
-
-                    <ImageView
-                        android:id="@+id/guestTimeImage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:src="@drawable/time_list"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/guestTimeDelete"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/guestTimeTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        android:text="Guest Timeout Playlist"
-                        android:textSize="18sp"
-                        app:layout_constraintStart_toEndOf="@+id/guestTimeImage"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/guestTimeSongs"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        android:text="TextView"
-                        android:textSize="12sp"
-                        app:layout_constraintStart_toEndOf="@+id/guestTimeImage"
-                        app:layout_constraintTop_toBottomOf="@+id/guestTimeTitle" />
-
-                    <ImageButton
-                        android:id="@+id/guestTimeDisclosure"
-                        android:layout_width="20dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:background="#00ffffff"
-                        android:src="@drawable/right_arrow"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <ImageButton
-                        android:id="@+id/guestTimeDelete"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="#00FFFFFF"
-                        android:tag="Guest Timeout"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@android:drawable/presence_busy" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <TextView
-                    android:id="@+id/textView7"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#D9D9D9"
-                    android:paddingStart="16dp"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:text="General"
-                    android:textSize="20sp" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/generalInterruption"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:tag="genIntrpt">
-
-                    <ImageView
-                        android:id="@+id/generalIntrptImage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:src="@drawable/gen_list"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/generalIntrptDelete"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/generalIntrptTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        android:text="Game Interruption Playlist"
-                        android:textSize="18sp"
-                        app:layout_constraintStart_toEndOf="@+id/generalIntrptImage"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/generalIntrptSongs"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        android:text="TextView"
-                        android:textSize="12sp"
-                        app:layout_constraintStart_toEndOf="@+id/generalIntrptImage"
-                        app:layout_constraintTop_toBottomOf="@+id/generalIntrptTitle" />
-
-                    <ImageButton
-                        android:id="@+id/generalIntrptDisclosure"
-                        android:layout_width="20dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:background="#00ffffff"
-                        android:src="@drawable/right_arrow"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <ImageButton
-                        android:id="@+id/generalIntrptDelete"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="#00FFFFFF"
-                        android:tag="Game Interruptions"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@android:drawable/presence_busy" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <View
-                    android:id="@+id/divider5"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#D9D9D9" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/buffer"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp" />
-
-            </LinearLayout>
-        </ScrollView>
 </layout>

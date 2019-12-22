@@ -3,7 +3,6 @@ package com.android.example.hockeydj
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.os.Parcelable
 import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,7 +18,6 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.android.example.hockeydj.databinding.FragmentMusicSelectionListBinding
 import com.android.volley.VolleyError
-import kotlinx.android.synthetic.main.fragment_playlist_selection.*
 
 
 class MusicSelectionFragment : Fragment(), SpotifyTrackInterface, MusicSelectionAdapter.OnNoteCheckboxListener {
@@ -27,19 +25,10 @@ class MusicSelectionFragment : Fragment(), SpotifyTrackInterface, MusicSelection
     private val TAG = "JZ:MusicSelectionFragment"
 
     var hockeyPlaylist = ""
-
-    //Database Tracklist
     lateinit var activeHoekyPlaylist: List<Track>
-
-    //navigation
     lateinit var navController: NavController
-
-    //data binding
     lateinit var binding: FragmentMusicSelectionListBinding
-
     private lateinit var trackViewModel: TrackViewModel
-
-
     private val spotify = SpotifyService
     private var albumArtwork: Bitmap? = null
 
@@ -61,9 +50,9 @@ class MusicSelectionFragment : Fragment(), SpotifyTrackInterface, MusicSelection
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_music_selection_list, container, false)
 
         val mode = arguments?.getString("mode")
-        val tracksUrl = arguments?.getString("tracksUrl")!! //TODO: This is ok-ish, but not really safe...
-        albumArtwork = arguments?.getParcelable<Bitmap?>("albumImage")!! //TODO: This is ok-ish, but not really safe...
-        hockeyPlaylist = arguments?.getString("playlist")!! //TODO: This is ok-ish, but not really safe...
+        val tracksUrl = arguments?.getString("tracksUrl")!!         //TODO: This is ok-ish, but not really safe...
+        albumArtwork = arguments?.getParcelable<Bitmap?>("albumImage")!!    //TODO: This is ok-ish, but not really safe...
+        hockeyPlaylist = arguments?.getString("playlist")!!                 //TODO: This is ok-ish, but not really safe...
         val iconId = arguments?.getInt("icon")!!
         val name = arguments?.getString("name")
         val info = arguments?.getString("info")
@@ -71,6 +60,14 @@ class MusicSelectionFragment : Fragment(), SpotifyTrackInterface, MusicSelection
         binding.playlistIcon.setImageBitmap(BitmapFactory.decodeResource(resources, iconId))
         binding.playlistTitle.text = name
         binding.playlistInfo.text = info
+
+        val backgroundSet = BackgroundSet
+        backgroundSet.applicationContext = requireContext()
+        backgroundSet.loadImage()
+        backgroundSet.loadSettings()
+        binding.backPane.setImageDrawable(backgroundSet.bitmap)
+        binding.backPane.alpha = backgroundSet.alpha
+        binding.backPane.scaleType = backgroundSet.scaleType
 
         addPlaylistObserver()
 
@@ -82,6 +79,20 @@ class MusicSelectionFragment : Fragment(), SpotifyTrackInterface, MusicSelection
 
 
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "ON RESUME MUSIC SELECTION")
+
+        val backgroundSet = BackgroundSet
+        backgroundSet.applicationContext = requireContext()
+        backgroundSet.loadImage()
+        backgroundSet.loadSettings()
+
+        binding.backPane.setImageDrawable(backgroundSet.bitmap)
+        binding.backPane.alpha = backgroundSet.alpha
+        binding.backPane.scaleType = backgroundSet.scaleType
     }
 
     private fun addPlaylistObserver(){
@@ -169,10 +180,11 @@ class MusicSelectionFragment : Fragment(), SpotifyTrackInterface, MusicSelection
         trackViewModel.insertOrUpdate(trackToSave)
     }
 
-//    companion object {
-//        var mode: String? = null
-//        var tracksUrl: String = ""
-//        var artwork: Bitmap? = null
-//        var playlist: String = ""
-//    }
+    var previousPos = -1
+    override fun onPlaybuttonclicked(pos: Int) {
+        if ((previousPos >=0) && (previousPos != pos)) {
+            binding.songRecyclerView.adapter?.notifyItemChanged(previousPos)
+        }
+        previousPos = pos
+    }
 }

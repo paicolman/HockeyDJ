@@ -65,4 +65,7 @@ interface TrackDao {
 
     @Query("SELECT * from tracks WHERE :trackUri LIKE track_uri")
     fun getTrackWithTrackUri(trackUri: String): Track?
+
+    @Query("DELETE FROM tracks WHERE homeGoal IS 0 AND homeFault IS 0 AND homeTimeout IS 0 AND guestGoal Is 0 AND guestFault IS 0 AND guestTimeout Is 0 AND genIntrpt IS 0")
+    suspend fun deleteUnusedTracks()
 }

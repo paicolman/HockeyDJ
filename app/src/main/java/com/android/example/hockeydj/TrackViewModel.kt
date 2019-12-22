@@ -22,6 +22,15 @@ class TrackViewModel(application: Application) : AndroidViewModel(application) {
     var guestTimeoutPlaylist: LiveData<List<Track>>
     var generalPlaylist: LiveData<List<Track>>
 
+    //These list track already played tracks to minimize repetitions.
+    var homeGoalPlayed:MutableList<Int>
+    var homeFaultPlayed: MutableList<Int>
+    var homeTimeoutPlayed: MutableList<Int>
+    var guestGoalPlayed: MutableList<Int>
+    var guestFaultPlayed: MutableList<Int>
+    var guestTimeoutPlayed: MutableList<Int>
+    var generalPlayed: MutableList<Int>
+
     init{
         val trackDao = TracksDatabase.getDatabase(application, viewModelScope).trackDao()
         repository = TrackRepository(trackDao)
@@ -33,6 +42,13 @@ class TrackViewModel(application: Application) : AndroidViewModel(application) {
         guestFaultPlaylist = repository.guestFaultTracks
         guestTimeoutPlaylist = repository.guestTimeoutTracks
         generalPlaylist = repository.generalTracks
+        homeGoalPlayed = mutableListOf()
+        homeFaultPlayed = mutableListOf()
+        homeTimeoutPlayed = mutableListOf()
+        guestGoalPlayed = mutableListOf()
+        guestFaultPlayed = mutableListOf()
+        guestTimeoutPlayed = mutableListOf()
+        generalPlayed = mutableListOf()
     }
 
     fun deleteAll() = viewModelScope.launch {
@@ -50,5 +66,7 @@ class TrackViewModel(application: Application) : AndroidViewModel(application) {
     fun resetPlaylist(playlist: String) = viewModelScope.async {
         Log.d(TAG, "Deleting playlist...")
         repository.resetPlaylist(playlist)
+        Log.d(TAG,"Purging unused tracks...")
+        repository.purgeDB()
     }
 }

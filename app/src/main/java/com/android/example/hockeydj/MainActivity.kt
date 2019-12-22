@@ -109,6 +109,7 @@ class MainActivity : AppCompatActivity(), SpotifyConnectionInterface {
 
     override fun authenticationError(response: AuthenticationResponse) {
         Log.e(TAG, "Spotify Authentication Error: ${response.error}")
+
         val errorDialog = ConnectionErrorDialog()
         val bundle = bundleOf(
             "error" to "ERROR: ${response.error}"
@@ -119,12 +120,18 @@ class MainActivity : AppCompatActivity(), SpotifyConnectionInterface {
 
     override fun connectionError(msg: String?, throwable: Throwable) {
         Log.e(TAG, "Spotify Connection Error: $msg")
+        if (msg == null) {
+            //Disconnected, try to reconnect...
+            Log.e(TAG, "SPOTIFY DISCONNECTED! Trying to reconnect...")
+            spotify.authenticate()
+        } else {
         val errorDialog = ConnectionErrorDialog()
         val bundle = bundleOf(
             "error" to "ERROR: $msg"
         )
         errorDialog.arguments = bundle
         errorDialog.show(supportFragmentManager, "")
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?) {

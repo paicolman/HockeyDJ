@@ -52,6 +52,15 @@ class PlaylistSelectionFragment : Fragment(), View.OnClickListener {
         Log.d(TAG, "onCreateView")
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_playlist_selection, container,false)
+
+        val backgroundSet = BackgroundSet
+        backgroundSet.applicationContext = requireContext()
+        backgroundSet.loadImage()
+        backgroundSet.loadSettings()
+        binding.backPane.setImageDrawable(backgroundSet.bitmap)
+        binding.backPane.alpha = backgroundSet.alpha
+        binding.backPane.scaleType = backgroundSet.scaleType
+
         return binding.root
     }
 
@@ -81,6 +90,16 @@ class PlaylistSelectionFragment : Fragment(), View.OnClickListener {
         super.onResume()
         trackViewModel = ViewModelProvider(this).get(TrackViewModel::class.java)
         addPlaylistObserver()
+
+        val backgroundSet = BackgroundSet
+        backgroundSet.applicationContext = requireContext()
+        backgroundSet.loadImage()
+        backgroundSet.loadSettings()
+
+        binding.backPane.setImageDrawable(backgroundSet.bitmap)
+        binding.backPane.alpha = backgroundSet.alpha
+        binding.backPane.scaleType = backgroundSet.scaleType
+
     }
 
     override fun onClick(v: View?) {
@@ -98,37 +117,37 @@ class PlaylistSelectionFragment : Fragment(), View.OnClickListener {
 
                     when (playlistView.tag.toString()) {
                         "homeGoal" -> {
-                            name = "Editing: Home Goals playlist"
+                            name = "Home Goals playlist"
                             icon = R.drawable.goal_list
                             info = playlistInfo[0]
                         }
                         "homeFault" -> {
-                            name = "Editing: Home Faults playlist"
+                            name = "Home Faults playlist"
                             icon = R.drawable.fault_list
                             info = playlistInfo[1]
                         }
                         "homeTimeout" -> {
-                            name = "Editing: Home Timeouts playlist"
+                            name = "Home Timeouts playlist"
                             icon = R.drawable.time_list
                             info = playlistInfo[2]
                         }
                         "guestGoal" -> {
-                            name = "Editing: Guest Goals playlist"
+                            name = "Guest Goals playlist"
                             icon = R.drawable.goal_list
                             info = playlistInfo[3]
                         }
                         "guestFault" -> {
-                            name = "Editing: Guest Faults playlist"
+                            name = "Guest Faults playlist"
                             icon = R.drawable.fault_list
                             info = playlistInfo[4]
                         }
                         "guestTimeout" -> {
-                            name = "Editing: Guest Timeouts playlist"
+                            name = "Guest Timeouts playlist"
                             icon = R.drawable.time_list
                             info = playlistInfo[5]
                         }
                         "genIntrpt" -> {
-                            name = "Editing: Game Int. playlist"
+                            name = "Game Int. playlist"
                             icon = R.drawable.gen_list
                             info = playlistInfo[6]
                         }

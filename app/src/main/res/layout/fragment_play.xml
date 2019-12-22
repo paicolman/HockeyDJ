@@ -31,6 +31,8 @@
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/hockey_font_02"
                 android:text="HOME TEAM"
+                android:textColor="#3F51B5"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="@id/homeGoalButton"
                 app:layout_constraintStart_toStartOf="@id/homeGoalButton"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -42,6 +44,8 @@
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/hockey_font_02"
                 android:text="GUEST TEAM"
+                android:textColor="#673AB7"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="@id/guestGoalButton"
                 app:layout_constraintStart_toStartOf="@id/guestGoalButton"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -155,7 +159,8 @@
                 android:layout_marginBottom="8dp"
                 android:fontFamily="@font/hockey_font_02"
                 android:text="Game interruption"
-                android:textSize="18sp"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp"
                 app:layout_constraintBottom_toTopOf="@+id/soundOnOff"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -166,9 +171,9 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="4dp"
                 app:layout_constraintBottom_toTopOf="@+id/nowPlaying"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -180,9 +185,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
                 android:layout_marginEnd="24dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="4dp"
                 android:ellipsize="marquee"
                 android:marqueeRepeatLimit="marquee_forever"
                 android:scrollHorizontally="true"
@@ -198,18 +203,49 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/stop_on"
                 android:fontFamily="@font/hockey_font_02"
                 android:text="STOP"
                 android:textColor="#FFFFFF"
-                android:textSize="30sp"
+                android:textSize="36sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/nowPlaying" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/connectingToSpotify"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#E6FFFFFF"
+                android:elevation="99dp">
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/spotify_icon" />
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Connecting to Spotify..."
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

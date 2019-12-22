@@ -2,21 +2,20 @@ package com.android.example.hockeydj
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.os.Handler
 import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewTreeObserver
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.lifecycle.ViewModelProvider
-import com.android.example.hockeydj.com.android.example.hockeydj.MusicProvider
 import com.android.volley.Response
 import com.android.volley.toolbox.ImageRequest
 import com.android.volley.toolbox.Volley
 
 import kotlinx.android.synthetic.main.fragment_music_selection.view.*
+import java.util.*
 
 
 class MusicSelectionAdapter(private val context: Context, private val songs: List<Track>, private val hockeyTracks: List<Track>, private val albumArtwork: Bitmap?, val noteCheckboxListener: OnNoteCheckboxListener) : RecyclerView.Adapter<MusicSelectionAdapter.ViewHolder>() {
@@ -34,6 +33,8 @@ class MusicSelectionAdapter(private val context: Context, private val songs: Lis
         holder.trackName.text = song.name
         holder.track = song.trackUri
         holder.checkbox.isChecked = checkTrackIsSelected(song)
+        holder.pos = position
+        holder.playButton.setImageResource(android.R.drawable.ic_media_play)
         requestBitmap(song.imageUrl, holder)
     }
 
@@ -101,21 +102,38 @@ class MusicSelectionAdapter(private val context: Context, private val songs: Lis
         var track = ""
         var playing = false
         val observer = trackArtwork.viewTreeObserver
+        var pos = -1
 
         init {
             playButton.setOnClickListener(this)
             checkbox.setOnClickListener(this)
         }
 
+        fun delayedStop() {
+
+        }
+
+        val handler = Handler()
         override fun onClick(v: View?) {
             when (v) {
                 playButton -> {
+                    noteCheckboxListener.onPlaybuttonclicked(adapterPosition)
                     if (!playing) {
+                        playButton.setImageResource(android.R.drawable.ic_media_pause)
                         spotify.playTrack(track)
+                        //stop preview after 30 sec
+                        handler.postDelayed({
+                            playButton.setImageResource(android.R.drawable.ic_media_play)
+                            spotify.pause()
+                            playing = false
+                        }, 30000)
+
                         playing = true
                     } else {
+                        playButton.setImageResource(android.R.drawable.ic_media_play)
                         spotify.pause()
                         playing = false
+                        handler.removeCallbacksAndMessages(null);
                     }
                 }
                 checkbox -> {
@@ -126,9 +144,12 @@ class MusicSelectionAdapter(private val context: Context, private val songs: Lis
             }
         }
 
+
+
     }
 
     interface OnNoteCheckboxListener {
         fun onCheckboxClicked(track: Track, isChecked: Boolean)
+        fun onPlaybuttonclicked(pos: Int)
     }
 }

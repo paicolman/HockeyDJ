@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.ImageView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
@@ -22,6 +23,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.android.example.hockeydj.BackgroundSet.applicationContext
 import com.android.example.hockeydj.databinding.FragmentPlayBinding
 import com.spotify.sdk.android.authentication.AuthenticationResponse
+import java.util.ArrayList
 import kotlin.random.Random
 
 
@@ -76,9 +78,8 @@ class PlayFragment : Fragment(), View.OnClickListener, SpotifyReady, SpotifyCont
         binding.backPane.alpha = backgroundSet.alpha
         binding.backPane.scaleType = backgroundSet.scaleType
 
-//        binding.playFrame.background = backgroundSet.bitmap
-//        binding.playFrame.background.alpha = backgroundSet.alpha
-//        binding.playFrame.background
+        activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+
         return binding.root
     }
 
@@ -87,14 +88,12 @@ class PlayFragment : Fragment(), View.OnClickListener, SpotifyReady, SpotifyCont
         Log.d(TAG, "onViewCreated")
     }
 
-    override fun onStart() {
-        super.onStart()
-        Log.d(TAG, "onStart")
-    }
-
     override fun onResume() {
         super.onResume()
         Log.d(TAG, "onResume")
+        if (spotifyIsOn) {
+            binding.connectingToSpotify.visibility = View.GONE
+        }
         activateButton(trackViewModel.homeGoalPlaylist, binding.homeGoalButton, R.drawable.goal_off)
         activateButton(trackViewModel.guestGoalPlaylist, binding.guestGoalButton, R.drawable.goal_off)
         activateButton(trackViewModel.homeFaultPlaylist, binding.homeFaultButton, R.drawable.fault_off)
@@ -111,6 +110,19 @@ class PlayFragment : Fragment(), View.OnClickListener, SpotifyReady, SpotifyCont
         binding.backPane.setImageDrawable(backgroundSet.bitmap)
         binding.backPane.alpha = backgroundSet.alpha
         binding.backPane.scaleType = backgroundSet.scaleType
+
+        activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+
+        binding.stopButton.background = context?.getDrawable(R.drawable.stop_on)
+        var bm = BitmapFactory.decodeResource(resources, R.drawable.nosound)
+        binding.soundOnOff.setImageBitmap(Bitmap.createBitmap(bm))
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "onPause...")
+        activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        stop() //Stop music if it's playing
     }
 
     private fun activateButton(livePlaylist: LiveData<List<Track>>, v:View, bgnd: Int) {
@@ -162,39 +174,39 @@ class PlayFragment : Fragment(), View.OnClickListener, SpotifyReady, SpotifyCont
             binding.homeGoalButton -> {
                 activeColor = R.drawable.goal_off
                 binding.homeGoalButton.background = context?.getDrawable(R.drawable.goal_on)
-                playRandom(trackViewModel.homeGoalPlaylist.value)
+                playRandom(trackViewModel.homeGoalPlaylist.value, trackViewModel.homeGoalPlayed)
             }
             binding.guestGoalButton -> {
                 activeColor = R.drawable.goal_off
                 binding.guestGoalButton.background = context?.getDrawable(R.drawable.goal_on)
                 //binding.guestGoalButton.setBackgroundColor(Color.parseColor("#ff31ff7f"))
-                playRandom(trackViewModel.guestGoalPlaylist.value)
+                playRandom(trackViewModel.guestGoalPlaylist.value, trackViewModel.guestGoalPlayed)
             }
             binding.homeFaultButton -> {
                 activeColor = R.drawable.fault_off
                 binding.homeFaultButton.background = context?.getDrawable(R.drawable.fault_on)
                 //binding.homeFaultButton.setBackgroundColor(Color.parseColor("#fffeff67"))
-                playRandom(trackViewModel.homeFaultPlaylist.value)
+                playRandom(trackViewModel.homeFaultPlaylist.value, trackViewModel.homeFaultPlayed)
             }
             binding.guestFaultButton -> {
                 activeColor = R.drawable.fault_off
                 binding.guestFaultButton.background = context?.getDrawable(R.drawable.fault_on)
-                playRandom(trackViewModel.guestFaultPlaylist.value)
+                playRandom(trackViewModel.guestFaultPlaylist.value, trackViewModel.guestFaultPlayed)
             }
             binding.homeTimeoutButton -> {
                 activeColor = R.drawable.time_off
                 binding.homeTimeoutButton.background = context?.getDrawable(R.drawable.time_on)
-                playRandom(trackViewModel.homeTimeoutPlaylist.value)
+                playRandom(trackViewModel.homeTimeoutPlaylist.value, trackViewModel.homeTimeoutPlayed)
             }
             binding.guestTimeoutButton -> {
                 activeColor = R.drawable.time_off
                 binding.guestTimeoutButton.background = context?.getDrawable(R.drawable.time_on)
-                playRandom(trackViewModel.guestTimeoutPlaylist.value)
+                playRandom(trackViewModel.guestTimeoutPlaylist.value, trackViewModel.guestTimeoutPlayed)
             }
             binding.generalInterruptButton -> {
                 activeColor = R.drawable.general_off
                 binding.generalInterruptButton.background = context?.getDrawable(R.drawable.general_on)
-                playRandom(trackViewModel.generalPlaylist.value)
+                playRandom(trackViewModel.generalPlaylist.value, trackViewModel.generalPlayed)
             }
             binding.stopButton -> {
                 activeColor = R.drawable.stop_off
@@ -208,9 +220,17 @@ class PlayFragment : Fragment(), View.OnClickListener, SpotifyReady, SpotifyCont
         activeButton = v
     }
 
-    private fun playRandom(playlist: List<Track>?){
+    private fun playRandom(playlist: List<Track>?, played: MutableList<Int>){
         if (playlist != null) {
-            val randTrack = Random.nextInt(playlist.size)
+            if (played.size == playlist.size) {
+                played.clear()
+            }
+            var randTrack = Random.nextInt(playlist.size)
+            while (randTrack in played){
+                Log.d(TAG, "repeated track...retrying")
+                randTrack = Random.nextInt(playlist.size)
+            }
+            played.add(0, randTrack)
             val trackToPlay = playlist[randTrack]
             Log.d(TAG, "Playing track: ${trackToPlay.trackUri}")
             spotify?.playTrack(trackToPlay.trackUri)
@@ -223,8 +243,11 @@ class PlayFragment : Fragment(), View.OnClickListener, SpotifyReady, SpotifyCont
         spotify?.pause()
     }
 
+    var spotifyIsOn = false
     override fun spotifyReady() {
         Log.d(TAG, "Instantiating spotify in the fragment")
+        binding.connectingToSpotify.visibility = View.GONE
+        spotifyIsOn = true
         spotify = SpotifyService
         spotify?.controlInterface = this
     }

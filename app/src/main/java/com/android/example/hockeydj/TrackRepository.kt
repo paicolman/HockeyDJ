@@ -60,6 +60,10 @@ class TrackRepository(private val trackDao: TrackDao) {
         }
     }
 
+    suspend fun purgeDB() {
+        trackDao.deleteUnusedTracks()
+    }
+
 //    fun getTracksInPlaylist(hockeyPlaylist:String)  {
 //        Log.d(TAG, "Getting tracks in playlist: $hockeyPlaylist")
 //        requestedTracks = trackDao.getTracksInHockeyPlaylist(hockeyPlaylist)
