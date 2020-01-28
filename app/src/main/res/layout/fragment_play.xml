@@ -7,7 +7,7 @@
         android:id="@+id/playFrame"
         android:layout_width="match_parent"
         android:layout_height="586dp"
-        tools:context=".PlayFragment">
+        tools:context="com.omalik.android.hockeydj.PlayFragment">
 
         <!-- TODO: Update blank fragment layout -->
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -220,7 +220,7 @@
                 android:id="@+id/connectingToSpotify"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#E6FFFFFF"
+                android:background="#FFFFFFFF"
                 android:elevation="99dp">
 
                 <ImageView

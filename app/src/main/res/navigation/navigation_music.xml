@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/playlistSelectionFragment"
-        android:name="com.android.example.hockeydj.PlaylistSelectionFragment"
+        android:name="com.omalik.android.hockeydj.PlaylistSelectionFragment"
         android:label="fragment_music_selection"
         tools:layout="@layout/fragment_playlist_selection" >
         <action
@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/musicFilterFragment"
-        android:name="com.android.example.hockeydj.MusicFilterFragment"
+        android:name="com.omalik.android.hockeydj.MusicFilterFragment"
         android:label="fragment_music_filter"
         tools:layout="@layout/fragment_music_filter" >
         <action
@@ -33,7 +33,7 @@
     </fragment>
     <fragment
         android:id="@+id/musicSelectionFragment"
-        android:name="com.android.example.hockeydj.MusicSelectionFragment"
+        android:name="com.omalik.android.hockeydj.MusicSelectionFragment"
         android:label="fragment_music_selection_list"
         tools:layout="@layout/fragment_music_selection_list">
         <argument

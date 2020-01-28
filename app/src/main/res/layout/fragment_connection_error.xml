@@ -32,7 +32,7 @@
             android:layout_marginEnd="8dp"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
-            android:text="A connection could not be established to Spotify. Please make sure you are connected to the internet, then start the application again."
+            android:text="A connection could not be established to Spotify. Please make sure that: \n- Spotify is nstalled in your phone\n- you have a valid Spotify account \n- you are connected to the internet.\n\nAfter that, please restart HockeyDJ again"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />

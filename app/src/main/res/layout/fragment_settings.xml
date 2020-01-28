@@ -5,7 +5,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".SettingsFragment"
+        tools:context="com.omalik.android.hockeydj.SettingsFragment"
         android:background="@drawable/background_set">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -109,6 +109,30 @@
                 app:layout_constraintEnd_toEndOf="@+id/imagePreview"
                 app:layout_constraintStart_toStartOf="@+id/imagePreview"
                 app:layout_constraintTop_toTopOf="@+id/imagePreview" />
+
+            <Button
+                android:id="@+id/quickhelp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="32dp"
+                android:text="Quick Help"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/transparency" />
+
+            <Button
+                android:id="@+id/acknowledgements"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:text="Acknowledgements"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/quickhelp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
